@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANGRAKSHAK - AI Cybersecurity</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <!-- Load Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Load Orbitron Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* GENERAL STYLES */
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    text-align: center;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #111;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+}
+
+.logo i {
+    color: #ffb400;
+}
+
+/* NAVIGATION (DESKTOP) */
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffb400;
+}
+
+/* Desktop Button */
+.desktop-btn {
+    display: block;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+    background: #ff9800;
+    color: #111;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #e68900;
+}
+
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* MOBILE MENU (Hidden by Default) */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background: #111;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Show menu when active */
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .desktop-btn {
+        display: none;
+    }
+}
+
+
+
+/* HERO SECTION */
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px; /* Reduced padding */
+    min-height: 100vh;
+    background-image: url('grid-pattern.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* HERO CONTENT */
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem; /* Slightly reduced for better fit */
+    font-weight: bold;
+    margin: 0;
+}
+
+.hero-content h1 span {
+    color: #ffb400;
+}
+
+.hero-content h2 {
+    font-size: 1.6rem;
+    margin-top: -5px;
+    color: #ffb400;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 15px 0;
+}
+
+/* BUTTONS */
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffb400;
+    border: 2px solid #ffb400;
+}
+
+.btn-secondary:hover {
+    background: #ffb400;
+    color: #111;
+}
+
+/* HERO IMAGE */
+.hero-image {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.hero-image img {
+    max-width: 350px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+    .hero {
+        padding: 60px 20px; /* Further reduced padding for small screens */
+    }
+
+    .hero-content h1 {
+        font-size: 2.4rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .hero-image img {
+        max-width: 280px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+}
+
+
+
+
+/* Features Section */
+.features {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+.features-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.highlight-text {
+    display: inline-block;
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.features-header h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.features-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Feature Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Feature Box */
+.feature-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(255, 180, 0, 0.3);
+}
+
+/* Feature Icons */
+.feature-icon {
+    font-size: 2rem;
+    color: #ffb400;
+    margin-bottom: 10px;
+}
+
+.feature-box h3 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .features-header h2 {
+        font-size: 2rem;
+    }
+
+    .features-header p {
+        font-size: 1.1rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Real-Time Monitoring Section */
+.realtime-monitoring {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+.monitoring-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.highlight-text {
+    display: inline-block;
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.monitoring-header h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+.monitoring-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Bot Activity Tracker */
+.bot-activity {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bot-activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.time-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.time-btn {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #ffb400;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.time-btn.active,
+.time-btn:hover {
+    background: #ffb400;
+    color: #111;
+}
+
+.chart-container {
+    height: 250px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.last-updated {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+/* Threat Statistics */
+.threat-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 40px auto;
+    max-width: 900px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box h4 {
+    font-size: 1.1rem;
+    color: #ffb400;
+}
+
+.stat-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.increase {
+    color: #00ff00;
+}
+
+.decrease {
+    color: #ff3333;
+}
+
+/* Global Threat Map */
+.global-threat-map {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-container {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.map-warning {
+    font-size: 2rem;
+    color: #ffb400;
+}
+
+.map-placeholder {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .monitoring-header h2 {
+        font-size: 2rem;
+    }
+
+    .monitoring-header p {
+        font-size: 1.1rem;
+    }
+
+    .time-filters {
+        flex-wrap: wrap;
+    }
+
+    .threat-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Simple Integration Section */
+.simple-integration {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+.integration-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.highlight-text {
+    display: inline-block;
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.integration-header h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+.integration-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Steps */
+.integration-steps {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.step {
+    text-align: center;
+    max-width: 220px;
+}
+
+.icon {
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: #ffb400;
+}
+
+.step-number {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ffb400;
+    color: #111;
+    font-size: 0.9rem;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.step h3 {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.step p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* Integration Code Box */
+.integration-code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    max-width: 700px;
+    margin: 40px auto 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.code-header h4 {
+    font-size: 1.1rem;
+    color: #ffb400;
+}
+
+.copy-btn {
+    background: #ffb400;
+    color: #111;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.copy-btn i {
+    font-size: 1rem;
+}
+
+pre {
+    background: #111;
+    padding: 12px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+}
+
+code {
+    color: #ffb400;
+}
+
+.integration-code p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .integration-header h2 {
+        font-size: 2rem;
+    }
+
+    .integration-header p {
+        font-size: 1.1rem;
+    }
+
+    .integration-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        max-width: 100%;
+    }
+}
+
+
+/* Tailored Solutions Section */
+.tailored-solutions {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+.solutions-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.highlight-text {
+    display: inline-block;
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.solutions-header h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+.solutions-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Solutions Grid */
+.solutions-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.solution-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 250px;
+    transition: 0.3s ease-in-out;
+}
+
+.solution-box:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: #ffb400;
+}
+
+.solution-box h3 {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.solution-box p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* Call-to-Action Box */
+.cta-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    margin: 40px auto 0;
+    max-width: 800px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cta-text {
+    text-align: left;
+    max-width: 70%;
+}
+
+.cta-text h3 {
+    font-size: 1.5rem;
+}
+
+.cta-text p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.cta-button {
+    background: #ffb400;
+    color: #111;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.cta-button:hover {
+    background: #e69c00;
+}
+
+.cta-stat {
+    text-align: center;
+}
+
+.accuracy {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffb400;
+}
+
+.cta-stat p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .solutions-header h2 {
+        font-size: 2rem;
+    }
+
+    .solutions-header p {
+        font-size: 1.1rem;
+    }
+
+    .solutions-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .solution-box {
+        max-width: 100%;
+    }
+
+    .cta-box {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .cta-text {
+        max-width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* Contact & Support Section */
+.contact-support {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+.contact-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.highlight-text {
+    display: inline-block;
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.contact-header h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+.contact-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Contact Container */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Contact Form */
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: left;
+    flex: 1;
+}
+
+.contact-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    resize: none;
+}
+
+.send-message {
+    background: #ffb400;
+    color: #111;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.send-message:hover {
+    background: #e69c00;
+}
+
+/* Support Options */
+.support-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 350px;
+    flex: 1;
+}
+
+.support-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    transition: 0.3s ease-in-out;
+}
+
+.support-box i {
+    font-size: 1.8rem;
+    color: #ffb400;
+}
+
+.support-box h4 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.support-box p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+.support-box a {
+    color: #ffb400;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.support-box:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-header h2 {
+        font-size: 2rem;
+    }
+
+    .contact-header p {
+        font-size: 1.1rem;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .contact-form,
+    .support-options {
+        max-width: 100%;
+    }
+
+    .support-box {
+        text-align: center;
+    }
+}
+
+
+/* Footer Styles */
+.footer {
+    background: #0d0d0d;
+    color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+    text-align: left;
+}
+
+.footer-about {
+    max-width: 400px;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-logo i {
+    color: #ffb400;
+}
+
+.footer-about p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 10px 0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ffb400;
+}
+
+/* Footer Links */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-links h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffb400;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+.footer-policy {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-policy a {
+    color: #bbb;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-policy a:hover {
+    color: #ffb400;
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #8000ff;
+    color: #fff;
+    border: none;
+    padding: 12px 14px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.scroll-top:hover {
+    background: #5700b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-policy {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+.ic{
+
+    font-size: 60px;
+}
+
+.red{
+
+    background:red;
+    color:white;
+    border-color: red;
+}
+    </style>
+</head>
+<body>
+
+    <!-- HEADER SECTION -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-shield"></i> SANGRAKSHAK
+        </div>
+
+        <!-- Navigation Links (Desktop) -->
+        <nav class="nav-links">
+            <a href="#">Features</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Integration</a>
+            <a href="#">Solutions</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <!-- Desktop Button -->
+        <button class="btn-primary desktop-btn">Try for Free</button>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU (Hidden by Default) -->
+    <div class="mobile-menu">
+        <a href="#">Features</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Integration</a>
+        <a href="#">Solutions</a>
+        <a href="#">Contact</a>
+        <button class="btn-primary">Try for Free</button>
+    </div>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>SANGRAKSHAK</span></h1>
+            <h2>Bot Detection Pannel</h2>
+            <p>
+                Advanced cybersecurity platform that uses AI to detect and block sophisticated bot attacks, protecting your digital assets with military-grade precision.
+            </p>
+            <div class="buttons">
+                <button class="btn-secondary" id="botdetected"><i class="fa-brands fa-bots ic"></i></button>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="features">
+        <div class="features-header">
+            <span class="highlight-text">POWERFUL FEATURES</span>
+            <h2>Advanced AI Security Suite</h2>
+            <p>Our comprehensive platform provides military-grade protection with an array of sophisticated technologies</p>
+        </div>
+    
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fa-solid fa-robot feature-icon"></i>
+                <h3>AI-Powered Behavioral Analysis</h3>
+                <p>Detects bots through advanced movement tracking and interaction analysis</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-bolt feature-icon"></i>
+                <h3>Real-time Threat Detection</h3>
+                <p>Identify and neutralize malicious bots as they attempt to access your site</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-chart-line feature-icon"></i>
+                <h3>Traffic Pattern Recognition</h3>
+                <p>Learns normal user behavior to spot anomalies with precision</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-shield-halved feature-icon"></i>
+                <h3>Zero Disruption Protection</h3>
+                <p>Secure your assets without impacting legitimate user experience</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-fingerprint feature-icon"></i>
+                <h3>Advanced Bot Fingerprinting</h3>
+                <p>Create unique identifiers for sophisticated bot networks</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-lock feature-icon"></i>
+                <h3>Military-Grade Encryption</h3>
+                <p>Protect sensitive user data with unbreakable security layers</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-shield feature-icon"></i>
+                <h3>DDoS Attack Mitigation</h3>
+                <p>Shield your services from distributed denial-of-service attacks</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-user-check feature-icon"></i>
+                <h3>Human User Verification</h3>
+                <p>Invisible challenges that only authentic users can pass</p>
+            </div>
+    
+            <div class="feature-box">
+                <i class="fa-solid fa-user-shield feature-icon"></i>
+                <h3>Adaptive Security Shield</h3>
+                <p>Evolving protection that learns and adapts to new threats</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="realtime-monitoring">
+        <div class="monitoring-header">
+            <span class="highlight-text">REAL-TIME MONITORING</span>
+            <h2>Live Threat Dashboard</h2>
+            <p>Monitor and analyze security threats in real-time with our advanced visualization tools</p>
+        </div>
+    
+        <!-- Bot Activity Tracker -->
+        <div class="bot-activity">
+            <div class="bot-activity-header">
+                <h3>Bot Activity Tracker</h3>
+                <div class="time-filters">
+                    <button class="time-btn">1H</button>
+                    <button class="time-btn active">24H</button>
+                    <button class="time-btn">7D</button>
+                    <button class="time-btn">30D</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="botActivityChart"></canvas> <!-- Chart.js placeholder -->
+            </div>
+            <p class="last-updated"><i class="fa-solid fa-clock"></i> Last updated: Just now</p>
+        </div>
+    
+        <!-- Key Threat Statistics -->
+        <div class="threat-stats">
+            <div class="stat-box">
+                <h4>Bot Traffic</h4>
+                <p>2,784</p>
+                <span class="increase">↑ 18.3% increase</span>
+            </div>
+            <div class="stat-box">
+                <h4>DDoS Attempts</h4>
+                <p>147</p>
+                <span class="decrease">↓ 5.2% decrease</span>
+            </div>
+            <div class="stat-box">
+                <h4>Blocked Requests</h4>
+                <p>8,496</p>
+                <span class="increase">↑ 12.7% increase</span>
+            </div>
+            <div class="stat-box">
+                <h4>Protected Assets</h4>
+                <p>156</p>
+                <span class="increase">↑ 3.4% increase</span>
+            </div>
+        </div>
+    
+        <!-- Global Threat Map -->
+        <div class="global-threat-map">
+            <h3>Global Threat Map</h3>
+            <p>Live visualization of attack origins across the globe</p>
+            <div class="map-container">
+                <i class="fa-solid fa-triangle-exclamation map-warning"></i>
+                <p class="map-placeholder">Interactive threat map will appear here in the live version</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="simple-integration">
+        <div class="integration-header">
+            <span class="highlight-text">SIMPLE INTEGRATION</span>
+            <h2>How It Works</h2>
+            <p>Securing your digital assets has never been easier. Follow these simple steps to integrate Sangrakshak.</p>
+        </div>
+    
+        <div class="integration-steps">
+            <div class="step">
+                <div class="icon"><i class="fa-solid fa-code"></i><span class="step-number">1</span></div>
+                <h3>Copy the CDN Link</h3>
+                <p>Get your unique Sangrakshak script from the dashboard</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fa-solid fa-server"></i><span class="step-number">2</span></div>
+                <h3>Paste into Head Section</h3>
+                <p>Add the script to your website’s <code>&lt;head&gt;</code> tag</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fa-solid fa-shield"></i><span class="step-number">3</span></div>
+                <h3>Activate AI Security</h3>
+                <p>Enable protection through the admin panel</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fa-solid fa-chart-line"></i><span class="step-number">4</span></div>
+                <h3>Monitor & Customize</h3>
+                <p>View real-time stats and adjust security settings</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="tailored-solutions">
+        <div class="solutions-header">
+            <span class="highlight-text">TAILORED SOLUTIONS</span>
+            <h2>Who Needs Sangrakshak?</h2>
+            <p>Our advanced security solutions are designed for industries facing sophisticated threats.</p>
+        </div>
+    
+        <div class="solutions-grid">
+            <div class="solution-box">
+                <div class="icon"><i class="fa-solid fa-shopping-bag"></i></div>
+                <h3>E-commerce</h3>
+                <p>Protect customer data and prevent cart hijacking.</p>
+            </div>
+            <div class="solution-box">
+                <div class="icon"><i class="fa-solid fa-tv"></i></div>
+                <h3>Media & Entertainment</h3>
+                <p>Secure streaming content and prevent credential stuffing.</p>
+            </div>
+            <div class="solution-box">
+                <div class="icon"><i class="fa-solid fa-database"></i></div>
+                <h3>SaaS Platforms</h3>
+                <p>Guard API endpoints and protect user accounts.</p>
+            </div>
+            <div class="solution-box">
+                <div class="icon"><i class="fa-solid fa-building"></i></div>
+                <h3>Government & Finance</h3>
+                <p>Military-grade protection for sensitive data and transactions.</p>
+            </div>
+        </div>
+    
+        <!-- Call-to-Action Box -->
+        <div class="cta-box">
+            <div class="cta-text">
+                <h3>Ready to secure your digital assets?</h3>
+                <p>Join thousands of businesses that trust Sangrakshak for their cybersecurity needs. Our platform adapts to your specific requirements.</p>
+                <button class="cta-button">Start Free Trial</button>
+            </div>
+            <div class="cta-stat">
+                <span class="accuracy">99.8%</span>
+                <p>Threat Detection Accuracy</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="contact-support">
+        <div class="contact-header">
+            <span class="highlight-text">GET IN TOUCH</span>
+            <h2>Contact & Support</h2>
+            <p>Our team of security experts is ready to assist you with any questions.</p>
+        </div>
+    
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h3>Send us a message</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your name" required>
+                        <input type="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <select required>
+                        <option value="" disabled selected>Select an issue</option>
+                        <option value="billing">Billing Issue</option>
+                        <option value="technical">Technical Support</option>
+                        <option value="general">General Inquiry</option>
+                    </select>
+                    <textarea placeholder="Describe your issue or question" required></textarea>
+                    <button type="submit" class="send-message">Send Message</button>
+                </form>
+            </div>
+    
+            <!-- Support Options -->
+            <div class="support-options">
+                <div class="support-box">
+                    <i class="fa-solid fa-comments"></i>
+                    <h4>Live Chat</h4>
+                    <p>Chat with our AI assistant or get connected with a human agent.</p>
+                    <a href="#">Start Chat →</a>
+                </div>
+                <div class="support-box">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>Email Us</h4>
+                    <p>Our support team typically responds within 24 hours.</p>
+                    <a href="mailto:support@sangrakshak.io">support@sangrakshak.io</a>
+                </div>
+                <div class="support-box">
+                    <i class="fa-solid fa-phone"></i>
+                    <h4>Call Us</h4>
+                    <p>Available Monday-Friday, 9AM-6PM EST.</p>
+                    <a href="tel:+18005551234">+1 (800) 555-1234</a>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Left Section -->
+            <div class="footer-about">
+                <h2 class="footer-logo"><i class="fa-solid fa-shield"></i> SANGRAKSHAK</h2>
+                <p>
+                    Advanced AI-powered cybersecurity platform providing military-grade protection against sophisticated bot attacks and threats.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+    
+            <!-- Center Section -->
+            <div class="footer-links">
+                <h3>Company</h3>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Press</a>
+                <a href="#">Contact</a>
+            </div>
+    
+            <!-- Right Section -->
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <a href="#">Documentation</a>
+                <a href="#">Knowledge Base</a>
+                <a href="#">API Reference</a>
+                <a href="#">Status</a>
+                <a href="#">System Security</a>
+            </div>
+        </div>
+    
+        <!-- Bottom Section -->
+        <div class="footer-bottom">
+            <p>© 2025 AstraGenX | Powered by AI-driven cybersecurity</p>
+            <div class="footer-policy">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Legal</a>
+            </div>
+        </div>
+    
+        <!-- Scroll to Top Button -->
+        <button class="scroll-top" onclick="scrollToTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </footer>
+    
+
+
+    <script>
+
+function toggleMenu() {
+    document.querySelector('.mobile-menu').classList.toggle('active');
+}
+
+
+
+const ctx = document.getElementById("botActivityChart").getContext("2d");
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: ["00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
+            datasets: [{
+                label: "Bot Activity",
+                data: [20, 15, 25, 30, 45, 60, 80, 100, 70, 50, 30, 20],
+                borderColor: "#ffb400",
+                backgroundColor: "rgba(255, 180, 0, 0.3)",
+                fill: true,
+            }]
+        }
+    });
+
+
+
+  
+
+    // Scroll to Top Function
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+
+/*----------------------------CDN-----------------------------*/
+
+
+// Array to store the mouse movement data
+let mouseMovements = [];
+
+// Function to handle mouse movement
+function handleMouseMove(event) {
+  const movementData = {
+    x: event.clientX, // X position relative to viewport
+    y: event.clientY, // Y position relative to viewport
+    timestamp: Date.now(), // Capture the timestamp
+  };
+
+  // Add the movement data to the array
+  mouseMovements.push(movementData);
+
+// Add event listener for mouse movement
+window.addEventListener("mousemove", handleMouseMove);
+
+// Optional: Save to localStorage every 5 seconds (for client-side persistence)
+setInterval(() => {
+  localStorage.setItem("mouseMovements", JSON.stringify(mouseMovements));
+}, 5000);
+
+}
+
+
+// Wait for the page to fully load
+// Wait for the page to fully load
+
+
+let lastX = 0, lastY = 0;
+let movements = [];
+
+document.addEventListener("mousemove", (event) => {
+    let { clientX, clientY } = event;
+
+    // Calculate movement distance
+    let dx = Math.abs(clientX - lastX);
+    let dy = Math.abs(clientY - lastY);
+    
+    // Store movement data
+    movements.push({ dx, dy });
+
+    // Keep only the last 50 movements
+    if (movements.length > 50) movements.shift();
+
+    // Analyze bot-like patterns
+    detectBotMovement();
+
+    lastX = clientX;
+    lastY = clientY;
+});
+
+function detectBotMovement() {
+    if (movements.length < 20) return;
+
+    let totalDx = 0, totalDy = 0;
+    let samePattern = true;
+
+    for (let i = 1; i < movements.length; i++) {
+        totalDx += movements[i].dx;
+        totalDy += movements[i].dy;
+
+        if (movements[i].dx !== movements[i - 1].dx || movements[i].dy !== movements[i - 1].dy) {
+            samePattern = false;
+        }
+    }
+
+    // If movement is perfectly linear or repetitive, trigger alert
+    if (samePattern || totalDx === 0 || totalDy === 0) {
+         document.getElementById("botdetected").classList.add("red");
+        document.removeEventListener("mousemove", detectBotMovement); // Stop further detection
+    }
+}
+
+
+
+
+let lastKey = null;
+let lastTime = 0;
+const minTimeThreshold = 30; // Increased sensitivity to detect bots (in milliseconds)
+const maxKeyDistance = 8; // Distance threshold between key codes to identify unnatural typing
+
+document.addEventListener("keydown", (event) => {
+    let currentTime = performance.now();
+    let currentKey = event.key.toUpperCase();
+    let currentKeyCode = event.code.charCodeAt(0);
+    
+    if (lastKey) {
+        let timeDiff = currentTime - lastTime;
+        let keyDistance = Math.abs(currentKeyCode - lastKey.charCodeAt(0));
+        
+        if (timeDiff < minTimeThreshold && keyDistance >= maxKeyDistance) {
+            document.getElementById("botdetected").classList.add("red");
+        }
+    }
+    
+    lastKey = currentKey;
+    lastTime = currentTime;
+});
+
+
+let lastKeyTime = performance.now();
+document.addEventListener("keydown", () => {
+    let currentTime = performance.now();
+    if (currentTime - lastKeyTime < 30) {
+        document.getElementById("botdetected").classList.add("red");
+    }
+    lastKeyTime = currentTime;
+});
+
+
+if (navigator.webdriver || !window.chrome) {
+    document.getElementById("botdetected").classList.add("red");
+    console.warn("Headless browser or bot detected!");
+}
+
+
+let lastClickTime = 0;
+let clickCount = 0;
+const clickThreshold = 3; // Number of rapid clicks before triggering an alert
+const timeThreshold = 300; // Time in milliseconds to consider rapid clicking
+let lastClickPosition = { x: 0, y: 0 };
+
+document.addEventListener("click", (event) => {
+    let currentTime = performance.now();
+    let timeDiff = currentTime - lastClickTime;
+    let clickPosition = { x: event.clientX, y: event.clientY };
+    
+    // Check if clicks are rapid and at the same position
+    if (timeDiff < timeThreshold && Math.abs(clickPosition.x - lastClickPosition.x) < 5 && Math.abs(clickPosition.y - lastClickPosition.y) < 5) {
+        clickCount++;
+    } else {
+        clickCount = 1; // Reset if time gap or position is different
+    }
+
+    if (clickCount >= clickThreshold) {
+        document.getElementById("botdetected").classList.add("red");
+        clickCount = 0; // Reset counter after detection
+    }
+
+    lastClickTime = currentTime;
+    lastClickPosition = clickPosition;
+});
+
+
+if (!window.DeviceMotionEvent || !window.DeviceOrientationEvent) {
+    document.getElementById("botdetected").classList.add("red");
+}
+
+
+
+
+
+async function checkSuspiciousIP() {
+    try {
+        let response = await fetch("https://ipinfo.io/json?token=5b9b80b2f93b82"); 
+        let data = await response.json();
+
+        let ip = data.ip;
+        let org = data.org || "Unknown";
+        let country = data.country;
+        let isVPN = (org.includes("VPN") || org.includes("Proxy") || org.includes("Hosting"));
+
+        console.log(`IP: ${ip}, ISP: ${org}, Country: ${country}`);
+
+        // Flag suspicious network activity
+        if (isVPN) {
+            document.getElementById("botdetected").classList.add("red");
+        }
+
+    } catch (error) {
+        console.error("Error fetching IP details:", error);
+    }
+}
+
+// Call function on page load
+checkSuspiciousIP();
+
+
+
+
+/*------------------------------CDN ENDS-----------------------*/
+
+
+
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <style>
+    /* Base styles */
+:root {
+    --background: rgb(18, 18, 18);
+    --foreground: rgb(250, 250, 250);
+    --card: rgb(25, 25, 25);
+    --card-foreground: rgb(250, 250, 250);
+    --popover: rgb(23, 23, 23);
+    --popover-foreground: rgb(250, 250, 250);
+    --primary: rgb(255, 215, 0);
+    --primary-foreground: rgb(25, 25, 25);
+    --secondary: rgb(38, 38, 38);
+    --secondary-foreground: rgb(250, 250, 250);
+    --muted: rgb(38, 38, 38);
+    --muted-foreground: rgb(166, 166, 166);
+    --accent: rgb(230, 184, 0);
+    --accent-foreground: rgb(250, 250, 250);
+    --destructive: rgb(204, 51, 51);
+    --destructive-foreground: rgb(250, 250, 250);
+    --border: rgb(51, 51, 51);
+    --input: rgb(51, 51, 51);
+    --ring: rgb(255, 215, 0);
+    --radius: 0.75rem;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  
+  .header {
+    text-align: center;
+    max-width: 768px;
+    margin-bottom: 3rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+  }
+  
+  .gold-gradient-text {
+    background: linear-gradient(90deg, #ffd700, #f2c94c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  /* Plans container */
+  .plans-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1280px;
+  }
+  
+  @media (min-width: 768px) {
+    .plans-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Plan card styles */
+  .plan-card {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .plan-card:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 25px rgba(255, 215, 0, 0.15);
+    transform: translateY(-5px);
+  }
+  
+  .plan-card.recommended {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+  }
+  
+  .recommended-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .price {
+    margin-bottom: 1.5rem;
+  }
+  
+  .amount {
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+  
+  .period {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin-left: 0.25rem;
+  }
+  
+  /* Features */
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+  
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    color: var(--muted-foreground);
+    text-decoration: line-through;
+  }
+  
+  .feature.included {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+    margin-top: 0.125rem;
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  
+  .feature.included .feature-icon {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: var(--primary);
+  }
+  
+  .select-btn {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    border-radius: var(--radius);
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    margin-top: auto;
+  }
+  
+  .select-btn:hover {
+    background-color: rgba(38, 38, 38, 0.8);
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+  
+  .select-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+  }
+  
+  .recommended-btn {
+    background: linear-gradient(90deg, #ffd700, #f2c94c);
+    color: var(--primary-foreground);
+  }
+  
+  .recommended-btn:hover {
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(90deg, #f2c94c, #ffd700);
+  }
+  
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  
+  .modal-state {
+    display: none;
+  }
+  
+  .modal-state.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  
+  .modal-subtitle {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin-bottom: 1.5rem;
+  }
+  
+  .qr-container {
+    margin: 1.5rem auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .qr-container::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(90deg, #ffd700, #f2c94c);
+    border-radius: 0.75rem;
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.5;
+  }
+  
+  #qr-code {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .pay-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(90deg, #ffd700, #f2c94c);
+    color: var(--primary-foreground);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+    }
+    70% {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+  }
+  
+  .loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .loader {
+    width: 3rem;
+    height: 3rem;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .progress-container {
+    width: 100%;
+    height: 0.625rem;
+    background-color: var(--secondary);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    width: 70%;
+    background: linear-gradient(90deg, #ffd700, #f2c94c);
+    border-radius: 9999px;
+    animation: shimmer 2s linear infinite;
+    background-size: 200% 100%;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  .success-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto;
+    position: relative;
+  }
+  
+  .success-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(16, 185, 129, 0.1);
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .success-icon svg {
+    width: 2rem;
+    height: 2rem;
+    fill: rgb(16, 185, 129);
+  }
+  
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .failed-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(239, 68, 68, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto;
+  }
+  
+  .failed-icon svg {
+    width: 2rem;
+    height: 2rem;
+    fill: rgb(239, 68, 68);
+  }
+  
+  #payment-failed.active {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  
+  .try-again-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .try-again-btn:hover {
+    background-color: rgba(38, 38, 38, 0.6);
+  }
+  
+  #payment-success.active {
+    animation: scaleUp 0.5s ease;
+  }
+  
+  @keyframes scaleUp {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .confetti-item {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: confetti 3s ease-in-out forwards;
+  }
+  
+  @keyframes confetti {
+    0% {
+      transform: translateY(-10px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(300px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    transform: translateX(calc(100% + 1rem));
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-width: 350px;
+  }
+  
+  .toast.active {
+    transform: translateX(0);
+  }
+  
+  .toast-content {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .toast-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: rgba(16, 185, 129, 0.2);
+    color: rgb(16, 185, 129);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .toast-message {
+    flex-grow: 1;
+  }
+  
+  .toast-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .toast-description {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  .qrcode{
+    width: 200px;
+    height:200px;
+  }
+  
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Choose the right <span class="gold-gradient-text">protection</span> for you</h1>
+      <p class="subtitle">Select the plan that fits your security needs and budget</p>
+    </div>
+
+    <div class="plans-container">
+      <!-- Free Plan -->
+      <div class="plan-card">
+        <h3>Free</h3>
+        <div class="price">
+          <span class="amount">Free</span>
+        </div>
+        <div class="features">
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Basic Security Scan</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>1 Website Monitoring</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Weekly Reports</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Community Support</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <span>Advanced Threat Protection</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <span>Priority Support</span>
+          </div>
+        </div>
+        <button class="select-btn" data-plan="free">Select Plan</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="plan-card recommended">
+        <div class="recommended-badge">RECOMMENDED</div>
+        <h3>Pro</h3>
+        <div class="price">
+          <span class="amount gold-gradient-text">₹49</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="features">
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Basic Security Scan</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>10 Website Monitoring</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Daily Reports</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Email Support</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Advanced Threat Protection</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <span>Priority Support</span>
+          </div>
+        </div>
+        <button class="select-btn recommended-btn" data-plan="pro" data-price="49">Select Plan</button>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="plan-card">
+        <h3>Enterprise</h3>
+        <div class="price">
+          <span class="amount gold-gradient-text">₹99</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="features">
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Basic Security Scan</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Unlimited Website Monitoring</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Real-time Reports</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>24/7 Phone Support</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Advanced Threat Protection</span>
+          </div>
+          <div class="feature included">
+            <div class="feature-icon">✓</div>
+            <span>Priority Support</span>
+          </div>
+        </div>
+        <button class="select-btn" data-plan="enterprise" data-price="99">Select Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div class="modal-overlay" id="payment-modal">
+    <div class="modal-content">
+      <div class="modal-state" id="payment-initial">
+        <h2>Complete Payment</h2>
+        <p class="modal-subtitle">Pay <span id="payment-amount">₹0</span> for <span id="plan-name">Basic</span> Plan</p>
+        
+        <div class="qr-container">
+          <div id="qr-code"></div>
+        </div>
+        
+        <p class="modal-subtitle">Scan the QR code using any UPI app to complete payment</p>
+        
+        <button class="pay-btn" id="confirm-payment">I've Paid</button>
+      </div>
+
+      <div class="modal-state" id="payment-processing">
+        <h2>Confirming Payment</h2>
+        <div class="loader-container">
+          <div class="loader"></div>
+        </div>
+        <p class="modal-subtitle">Verifying payment, please wait...</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="modal-state" id="payment-success">
+        <div class="success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <h3>Payment Successful!</h3>
+        <p class="modal-subtitle">Redirecting to dashboard...</p>
+        <div class="confetti-container" id="confetti-container"></div>
+      </div>
+
+      <div class="modal-state" id="payment-failed">
+        <div class="failed-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <h3>Payment Failed!</h3>
+        <p class="modal-subtitle">We couldn't verify your payment. Please try again or use a different payment method.</p>
+        <button class="try-again-btn" id="try-again">Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <div class="toast-content">
+      <div class="toast-icon">✓</div>
+      <div class="toast-message">
+        <p class="toast-title">You've selected the Free plan!</p>
+        <p class="toast-description">Redirecting to dashboard...</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // DOM elements
+      const planCards = document.querySelectorAll('.plan-card');
+      const selectButtons = document.querySelectorAll('.select-btn');
+      const paymentModal = document.getElementById('payment-modal');
+      const paymentAmount = document.getElementById('payment-amount');
+      const planName = document.getElementById('plan-name');
+      const confirmPaymentBtn = document.getElementById('confirm-payment');
+      const tryAgainBtn = document.getElementById('try-again');
+      const qrCodeElement = document.getElementById('qr-code');
+      const toast = document.getElementById('toast');
+      const confettiContainer = document.getElementById('confetti-container');
+  
+      // Modal states
+      const initialState = document.getElementById('payment-initial');
+      const processingState = document.getElementById('payment-processing');
+      const successState = document.getElementById('payment-success');
+      const failedState = document.getElementById('payment-failed');
+  
+      // Add click event to all select buttons
+      selectButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const plan = this.getAttribute('data-plan');
+          const price = this.getAttribute('data-price') || '0';
+          
+          if (plan === 'free') {
+            // Show toast for free plan
+            showToast("You've selected the Free plan!", "Redirecting to dashboard...");
+  
+            // Redirect after 2 seconds
+            setTimeout(() => {
+              window.location.href = "/dashboard";
+            }, 2000);
+          } else {
+            // Show payment modal for paid plans
+            showPaymentModal(plan, price);
+          }
+        });
+      });
+  
+      // Show payment modal
+      function showPaymentModal(plan, price) {
+        // Update modal content
+        paymentAmount.textContent = '₹' + price;
+        planName.textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+  
+        // Generate QR code
+       
+        let img = document.createElement("img");
+
+// Set image attributes
+        img.src = "http://raw.githubusercontent.com/AstraGenX/debsproto2.0/refs/heads/main/assets/WhatsApp%20Image%202025-04-03%20at%2015.38.27_425dd39e.jpg?token=GHSAT0AAAAAAC7QUT72CX6RLQ724VF4RTFGZ7PH5FQ"; // Replace with your image URL 
+        img.alt = "Qr Code";
+        img.classList.add("qrcode");
+
+
+       qrCodeElement.appendChild(img);
+
+
+
+  
+        // Show initial state
+        showModalState(initialState);
+  
+        // Show modal
+        paymentModal.classList.add('active');
+      }
+  
+      // Show specific modal state
+      function showModalState(state) {
+        // Hide all states
+        initialState.classList.remove('active');
+        processingState.classList.remove('active');
+        successState.classList.remove('active');
+        failedState.classList.remove('active');
+  
+        // Show selected state
+        state.classList.add('active');
+      }
+  
+      // Handle payment confirmation
+      confirmPaymentBtn.addEventListener('click', function() {
+        // Show processing state
+        showModalState(processingState);
+  
+        // Simulate payment processing (2.5 seconds)
+        setTimeout(() => {
+          // 80% chance of success
+          const success = Math.random() < 0.95;
+  
+          if (success) {
+            // Show success state
+            showModalState(successState);
+            createConfetti();
+  
+            // Redirect to dashboard after 3 seconds
+            setTimeout(() => {
+              window.location.href = "/dashboard";
+            }, 3000);
+          } else {
+            // Show failed state
+            showModalState(failedState);
+          }
+        }, 2500);
+      });
+  
+      // Handle try again button
+      tryAgainBtn.addEventListener('click', function() {
+        // Go back to initial state
+        showModalState(initialState);
+      });
+  
+      // Close modal when clicking outside
+      paymentModal.addEventListener('click', function(event) {
+        if (event.target === paymentModal) {
+          // Only allow closing in initial state
+          if (initialState.classList.contains('active')) {
+            paymentModal.classList.remove('active');
+          }
+        }
+      });
+  
+      // Show toast notification
+      function showToast(title, description) {
+        const toastTitle = document.querySelector('.toast-title');
+        const toastDescription = document.querySelector('.toast-description');
+  
+        toastTitle.textContent = title;
+        toastDescription.textContent = description;
+  
+        toast.classList.add('active');
+  
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove('active');
+        }, 3000);
+      }
+  
+      // Create confetti effect
+      function createConfetti() {
+        // Clear existing confetti
+        confettiContainer.innerHTML = '';
+  
+        // Create 50 confetti particles
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement('div');
+          confetti.classList.add('confetti-item');
+  
+          // Random position
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.top = '-10px';
+  
+          // Random color
+          const colors = ['#FFD700', '#F2C94C', '#FFC700', '#FFEB3B'];
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+  
+          // Random animation delay
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+  
+          // Random animation duration
+          confetti.style.animationDuration = (1 + Math.random() * 2) + 's';
+  
+          confettiContainer.appendChild(confetti);
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html>

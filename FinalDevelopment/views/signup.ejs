@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangrakshak - Signup</title>
+    <style>
+        body {
+            background-color: #0c0c0c;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #111;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        .container h2 {
+            margin-bottom: 15px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a5acd;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #5848b2;
+        }
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .social-btn {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .github {
+            background-color: #333;
+            color: white;
+        }
+        .google {
+            background-color: #fbbc05;
+            color: black;
+        }
+        .link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .link a {
+            color: #6a5acd;
+            text-decoration: none;
+        }
+  
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 14px;
+    color: #a0a0a0;
+}
+
+.logo {
+            margin-bottom: 15px;
+        }
+
+        .shield-icon {
+            width: 60px;
+            height: 60px;
+            fill: #8a5cf6;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+       
+        
+        <div class="logo">
+            <div class="logo">
+                <svg class="shield-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <h1>Sangrakshak</h1>
+            <p>Security API Management Dashboard</p>
+        </div>
+        <h2>Sign Up</h2>
+        <form method="post" action="/createuser">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your name" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <div class="social-login">
+            <button class="social-btn github">GitHub</button>
+            <button class="social-btn google">Google</button>
+        </div>
+        <div class="link">Already have an account? <a href="/">Sign in</a></div>
+    </div>
+</body>
+</html>

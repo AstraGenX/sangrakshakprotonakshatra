@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangrakshak - Security API Management Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        .shield-icon {
+            width: 60px;
+            height: 60px;
+            fill: #8a5cf6;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #a1a1aa;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            background-color: rgba(20, 20, 25, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.1);
+        }
+
+        .form-header {
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #a1a1aa;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(30, 30, 35, 0.6);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #8a5cf6;
+            box-shadow: 0 0 0 2px rgba(138, 92, 246, 0.25);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            color: #8a5cf6;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #8a5cf6;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #7c4ef3;
+        }
+
+        .divider {
+            margin: 25px 0;
+            color: #a1a1aa;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn-social {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-github {
+            background-color: rgba(30, 30, 35, 0.6);
+            color: #fff;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+        }
+
+        .btn-github:hover {
+            background-color: rgba(40, 40, 45, 0.6);
+        }
+
+        .btn-google {
+            background-color: #f0c14b;
+            color: #000;
+            border: none;
+        }
+
+        .btn-google:hover {
+            background-color: #e6b93d;
+        }
+
+        .signup-link {
+            font-size: 14px;
+            color: #a1a1aa;
+        }
+
+        .signup-link a {
+            color: #8a5cf6;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <svg class="shield-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+        </div>
+        <h1 class="title">Sangrakshak</h1>
+        <p class="subtitle">Security API Management Dashboard</p>
+        
+        <div class="login-form">
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your dashboard</p>
+            </div>
+            
+            <form method="post" action="/check">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="your@email.com" name="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" name="password">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            
+            <div class="divider">Or continue with</div>
+            
+            <div class="social-login">
+                <button class="btn-social btn-github">GitHub</button>
+                <button class="btn-social btn-google">Google</button>
+            </div>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="/signup">Sign up</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

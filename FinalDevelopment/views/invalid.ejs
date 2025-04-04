@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Credentials</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #E53935, #D32F2F);
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            color: #E53935;
+            margin-top: 10px;
+        }
+
+        p {
+            color: #555;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #E53935;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #C62828;
+        }
+
+        /* ❌ Red Cross Animation */
+        .cross-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #E53935;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+
+        .cross {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+        }
+
+        .cross::before, .cross::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 5px;
+            background: white;
+            top: 50%;
+            left: 0;
+            transform-origin: center;
+            opacity: 0;
+            animation: crossAnim 0.5s ease-out 0.5s forwards;
+        }
+
+        .cross::before {
+            transform: rotate(45deg);
+        }
+
+        .cross::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes crossAnim {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cross-circle">
+            <div class="cross"></div>
+        </div>
+        <h2>Invalid Credentials</h2>
+        <p>Oops! Your email or password is incorrect. Please try again.</p>
+        <button onclick="goToLogin()">Try Again</button>
+    </div>
+
+    <script>
+        function goToLogin() {
+            window.location.href = "/"; // Redirect back to login page
+        }
+    </script>
+</body>
+</html>
